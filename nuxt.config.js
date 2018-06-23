@@ -13,6 +13,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  /*
+  ** Css and Sass
+  */
   css: [
     '@/assets/sass/app.scss',
   ],
@@ -20,6 +23,14 @@ module.exports = {
   ** Customize the progress bar color
   */
   loading: { color: '#3B8070' },
+  /*
+  ** Set modules
+  */
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/vuetify',
+    '@nuxtjs/font-awesome',
+  ],
   /*
   ** Build configuration
   */
