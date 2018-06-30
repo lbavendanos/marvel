@@ -4,7 +4,7 @@
       flat
       tile
       width="100%"
-      class="indigo lighten-1 white--text text-xs-center"
+      class="red lighten-1 white--text text-xs-center"
     >
       <v-card-text>
         <v-btn
