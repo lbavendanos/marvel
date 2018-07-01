@@ -1,22 +1,17 @@
 <template>
-    <v-card dark>
+    <v-card flat dark>
         <v-card-media
-            :src="`${card.thumbnail.path}.${card.thumbnail.extension}`"
+            :src="image"
             height="200px"
         >
         </v-card-media>
 
         <v-card-title primary-title>
             <div>
-                <div class="headline white--text">{{ card.name }}</div>
-                <span class="card__description grey--text">{{card.comics}} comics , {{card.series}} series, {{card.stories}} stories and {{card.events}} events</span>
+                <div class="subheading white--text">{{ card.title }}</div>
+                <span class="body-1 grey--text">{{ card.subtitle }}</span>
             </div>
         </v-card-title>
-
-        <v-card-actions>
-            <v-btn flat>Share</v-btn>
-            <v-btn flat color="red">Explore</v-btn>
-        </v-card-actions>
     </v-card>
 </template>
 
@@ -24,25 +19,17 @@
 export default {
     props: {
         id: Number,
-        name: String,
-        description: String,
-        thumbnail: Object,
-        comics: Number,
-        series: Number,
-        stories: Number,
-        events: Number,
+        title: String,
+        subtitle: String,
+        image: String
     },
     data() {
         return {
             card: {
                 id: this.id,
-                name: this.name,
-                description: this.description,
-                thumbnail: this.thumbnail,
-                comics: this.comics,
-                series: this.series,
-                stories: this.stories,
-                events: this.events
+                title: this.title,
+                subtitle: this.subtitle,
+                image: this.imnage
             },
             show: false
         }
@@ -51,10 +38,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card {
-    &__description {
-        // font-size: 0.9rem;
-    }
-}
+// .card {
+//     &__description {
+//         // font-size: 0.9rem;
+//     }
+// }
 </style>
 

@@ -1,33 +1,31 @@
 <template>
-  <v-footer height="auto" class="footer">
-    <v-card
-      flat
-      tile
-      width="100%"
-      class="red lighten-1 white--text text-xs-center"
-    >
-      <v-card-text>
-        <v-btn
-          v-for="icon in icons"
-          :key="icon"
-          icon
-          class="mx-3 white--text"
-        >
-          <v-icon size="24px">{{ icon }}</v-icon>
-        </v-btn>
-      </v-card-text>
-      <v-card-text class="white--text">
-        &copy;2018 — <strong>LBAVENDANOS</strong>
-      </v-card-text>
-    </v-card>
-  </v-footer>
+    <v-footer class="red" height="auto">
+        <v-container class="py-1">
+            <v-layout row wrap justify-space-between align-center>
+                <div>
+                    <h6 class="caption white--text">LBAVENDANOS &copy; {{ new Date().getFullYear() }}</h6>
+                </div>
+                <div>
+                    <v-btn v-for="icon in icons" :key="icon" dark small color="white" icon class="mx-1 my-1">
+                        <v-icon color="red">{{ icon }}</v-icon>
+                    </v-btn>
+                </div>
+            </v-layout>
+        </v-container>
+    </v-footer>
 </template>
 
 <script>
   export default {
       data() {
           return {
-              icons: ['fa fa-facebook-official', 'fa fa-twitter-square', 'fa fa-google-plus-official', 'fa fa-linkedin-square', 'fa fa-instagram']
+              icons: [
+                  'fa fa-github',
+                  'fa fa-facebook-official',
+                //   'fa fa-twitter-square',
+                //   'fa fa-google-plus-official',
+                //   'fa fa-linkedin-square',
+                  'fa fa-instagram']
           }
       }
   }
