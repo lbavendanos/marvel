@@ -51,9 +51,7 @@
                             color="gray"
                             size="60"
                         >
-                            <img
-                                :src="`${character.thumbnail.path}.${character.thumbnail.extension}`"
-                                :alt="character.name">
+                            <v-img :src="`${character.thumbnail.path}.${character.thumbnail.extension}`"></v-img>
                         </v-avatar>
                     </v-flex>
                 </v-layout>
