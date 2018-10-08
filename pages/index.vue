@@ -1,27 +1,26 @@
 <template>
     <section>
-        <v-jumbotron
-            dark
+        <v-img
             src="https://i.annihil.us/u/prod/marvel/html_pages_assets/mu-sellpage/prod/images/bg-topper-desktop.jpg">
-            <v-container fill-height>
-            <v-layout align-center>
-                <v-flex>
-                    <h3 class="display-3">Welcome to the site</h3>
-                    <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
-                    <v-divider class="my-3"></v-divider>
-                    <div class="title mb-3">Check out our newest features!</div>
+            <v-container fill-height class="white--text">
+                <v-layout align-center>
+                    <v-flex>
+                        <h3 class="display-3">Welcome to the site</h3>
+                        <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
+                        <v-divider class="my-3"></v-divider>
+                        <div class="title mb-3">Check out our newest features!</div>
 
-                    <v-btn
-                        class="mx-0"
-                        color="primary"
-                        large
-                    >
-                        See more
-                    </v-btn>
-                </v-flex>
-            </v-layout>
+                        <v-btn
+                            class="mx-0"
+                            color="grey darken-3 white--text"
+                            large
+                        >
+                            See more
+                        </v-btn>
+                    </v-flex>
+                </v-layout>
             </v-container>
-        </v-jumbotron>
+        </v-img>
         <v-container grid-list-lg py-5>
             <h1 class="title white--text mb-3 font-weight-black">COMICS</h1>
             <v-layout raw wrap>

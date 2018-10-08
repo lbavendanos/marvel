@@ -1,10 +1,10 @@
 <template>
     <v-card flat dark>
-        <v-card-media
+        <v-img
             :src="image"
             height="200px"
         >
-        </v-card-media>
+        </v-img>
 
         <v-card-title primary-title>
             <div>
