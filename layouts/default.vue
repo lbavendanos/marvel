@@ -1,9 +1,9 @@
 <template>
-  <main class="main">
-    <AppTopNavbar/>
-    <nuxt/>
-    <AppFooter/>
-  </main>
+    <main class="main">
+        <AppTopNavbar/>
+            <nuxt/>
+        <AppFooter/>
+    </main>
 </template>
 
 <script>
