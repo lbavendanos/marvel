@@ -17,24 +17,24 @@
 
 <script>
 export default {
-    props: {
-        id: Number,
-        title: String,
-        subtitle: String,
-        image: String
-    },
-    data() {
-        return {
-            card: {
-                id: this.id,
-                title: this.title,
-                subtitle: this.subtitle,
-                image: this.imnage
-            },
-            show: false
-        }
-    }
-}
+  props: {
+    id: { type: Number, default: 0 },
+    title: { type: String, default: "" },
+    subtitle: { type: String, default: "" },
+    image: { type: String, default: "" }
+  },
+  data() {
+    return {
+      card: {
+        id: this.id,
+        title: this.title,
+        subtitle: this.subtitle,
+        image: this.imnage
+      },
+      show: false
+    };
+  }
+};
 </script>
 
 <style lang="scss" scoped>
