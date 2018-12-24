@@ -34,10 +34,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .card {
-//     &__description {
-//         // font-size: 0.9rem;
-//     }
-// }
 </style>
 

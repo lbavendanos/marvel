@@ -12,7 +12,19 @@
         </v-layout>
       </v-container>
     </v-img>
-    <v-container grid-list-lg py-5>
+    <v-form>
+      <v-container>
+        <h3
+          class="subheading white--text text-xs-center font-weight-light"
+        >Search your favorite character</h3>
+        <v-layout row wrap align-center justify-center>
+          <v-flex xs12 sm8>
+            <v-text-field color="red" solo clearable label="Search"></v-text-field>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-form>
+    <v-container grid-list-lg pt-2 pb-5>
       <h1 class="title white--text mb-3 font-weight-black">SOME CHARACTERS</h1>
       <v-layout raw wrap>
         <v-flex
@@ -36,46 +48,14 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <v-form>
-      <v-container>
-        <h3
-          class="subheading white--text text-xs-center font-weight-light"
-        >Search your favorite character</h3>
-        <v-layout row wrap align-center justify-center>
-          <v-flex xs12 sm8>
-            <v-text-field color="red" solo clearable label="Search"></v-text-field>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-form>
   </section>
 </template>
 
 <script>
-import URI from 'urijs'
-import Random from 'random-js'
-import md5 from 'crypto-js/md5'
-
+// Import components
 import AppCard from '@/components/AppCard'
-
-const generateURL = (url, limit = 0, offset = 0) => {
-  let random = new Random(Random.engines.mt19937().autoSeed())
-  let ts = Date.now()
-  let hash = md5(
-    `${ts}${process.env.KEY_SECRET}${process.env.KEY_PUBLIC}`
-  ).toString()
-
-  let uri = new URI(url)
-  uri.addSearch({
-    limit: limit,
-    offset: offset != 0 ? random.integer(1, offset) : offset,
-    ts,
-    apikey: process.env.KEY_PUBLIC,
-    hash
-  })
-
-  return uri
-}
+// Import other libraries
+import Random from 'random-js'
 
 export default {
   components: {
@@ -83,10 +63,13 @@ export default {
   },
   async asyncData({ app }) {
     try {
-      let charactersUrl = generateURL(
+      let random = new Random(Random.engines.mt19937().autoSeed())
+      let charactersUrl = app.url.generate(
         'https://gateway.marvel.com:443/v1/public/characters',
-        4,
-        1491
+        {
+          limit: 8,
+          offset: random.integer(1, 1491)
+        }
       )
 
       let characters = await app.$axios.$get(charactersUrl.toString())
@@ -97,22 +80,10 @@ export default {
     } catch (error) {
       console.log(error)
     }
-  }
+  },
+  methods: {}
 }
 </script>
 
 <style lang="scss" scoped>
-.card {
-  &-item {
-    transition: transform 0.5s;
-    &:hover {
-      transform: scale(1.1);
-      z-index: 1;
-    }
-  }
-
-  &-link {
-    text-decoration: none;
-  }
-}
 </style>

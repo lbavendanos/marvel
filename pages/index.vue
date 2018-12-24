@@ -94,30 +94,10 @@
 </template>
 
 <script>
-import URI from 'urijs'
-import Random from 'random-js'
-import md5 from 'crypto-js/md5'
-
+// Import components
 import AppCard from '@/components/AppCard'
-
-const generateURL = (url, limit = 0, offset = 0) => {
-  let random = new Random(Random.engines.mt19937().autoSeed())
-  let ts = Date.now()
-  let hash = md5(
-    `${ts}${process.env.KEY_SECRET}${process.env.KEY_PUBLIC}`
-  ).toString()
-
-  let uri = new URI(url)
-  uri.addSearch({
-    limit: limit,
-    offset: offset != 0 ? random.integer(1, offset) : offset,
-    ts,
-    apikey: process.env.KEY_PUBLIC,
-    hash
-  })
-
-  return uri
-}
+// Import other libraries
+import Random from 'random-js'
 
 export default {
   components: {
@@ -125,25 +105,34 @@ export default {
   },
   async asyncData({ app }) {
     try {
-      let comicsUrl = generateURL(
+      let random = new Random(Random.engines.mt19937().autoSeed())
+      let comicsUrl = app.url.generate(
         'https://gateway.marvel.com:443/v1/public/comics',
-        8,
-        42117
+        {
+          limit: 8,
+          offset: random.integer(1, 42117)
+        }
       )
-      let charactersUrl = generateURL(
+      let charactersUrl = app.url.generate(
         'https://gateway.marvel.com:443/v1/public/characters',
-        24,
-        1491
+        {
+          limit: 24,
+          offset: random.integer(1, 1491)
+        }
       )
-      let seriesUrl = generateURL(
+      let seriesUrl = app.url.generate(
         'https://gateway.marvel.com:443/v1/public/series',
-        8,
-        10250
+        {
+          limit: 8,
+          offset: random.integer(1, 10250)
+        }
       )
-      let eventsUrl = generateURL(
+      let eventsUrl = app.url.generate(
         'https://gateway.marvel.com:443/v1/public/events',
-        8,
-        75
+        {
+          limit: 8,
+          offset: random.integer(1, 75)
+        }
       )
 
       let comics = await app.$axios.$get(comicsUrl.toString())
@@ -165,20 +154,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card {
-  &-item {
-    transition: transform 0.5s;
-    &:hover {
-      transform: scale(1.1);
-      z-index: 1;
-    }
-  }
-
-  &-link {
-    text-decoration: none;
-  }
-}
-
 .container-characters {
   background: url(https://community.algolia.com/marvel-search/img/profile-bg-default.gif)
     center center / cover no-repeat;
