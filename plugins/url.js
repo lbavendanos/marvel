@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 export default ({ app }, inject) => {
   // Set the function directly on the context.app object
-  app.url = {
+  inject('url', {
     generate: (url, options = {}) => {
       let apikey = process.env.KEY_PUBLIC
       let ts = Date.now()
@@ -26,5 +26,5 @@ export default ({ app }, inject) => {
 
       return uri
     }
-  }
+  })
 }

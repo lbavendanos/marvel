@@ -12,14 +12,22 @@
         </v-layout>
       </v-container>
     </v-img>
-    <v-form>
+    <v-form @submit.prevent="onSearch">
       <v-container>
         <h3
           class="subheading white--text text-xs-center font-weight-light"
         >Search your favorite character</h3>
         <v-layout row wrap align-center justify-center>
           <v-flex xs12 sm8>
-            <v-text-field color="red" solo clearable label="Search"></v-text-field>
+            <v-text-field
+              color="red"
+              solo
+              clearable
+              label="Search"
+              type="text"
+              v-model="search"
+              @click:clear="clearSearch"
+            ></v-text-field>
           </v-flex>
         </v-layout>
       </v-container>
@@ -61,10 +69,10 @@ export default {
   components: {
     AppCard
   },
-  async asyncData({ app }) {
+  async asyncData({ app, $axios }) {
     try {
       let random = new Random(Random.engines.mt19937().autoSeed())
-      let charactersUrl = app.url.generate(
+      let charactersUrl = app.$url.generate(
         'https://gateway.marvel.com:443/v1/public/characters',
         {
           limit: 8,
@@ -72,16 +80,55 @@ export default {
         }
       )
 
-      let characters = await app.$axios.$get(charactersUrl.toString())
+      let characters = await $axios.$get(charactersUrl.toString())
 
       return {
-        characters: characters.data.results
+        characters: characters.data.results,
+        search: null
       }
     } catch (error) {
       console.log(error)
     }
   },
-  methods: {}
+  methods: {
+    async onSearch() {
+      try {
+        this.characters = await this.getCharacters(this.search)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async clearSearch() {
+      try {
+        this.characters = await this.getCharacters(null)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async getCharacters(search = null) {
+      try {
+        let random = new Random(Random.engines.mt19937().autoSeed())
+        let option = {}
+
+        if (search) {
+          option.nameStartsWith = search
+        } else {
+          option.limit = 8
+          option.offset = random.integer(1, 1491)
+        }
+
+        let charactersUrl = this.$url.generate(
+          'https://gateway.marvel.com:443/v1/public/characters',
+          option
+        )
+
+        let { data } = await this.$axios.$get(charactersUrl.toString())
+        return data.results
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 }
 </script>
 

@@ -106,28 +106,28 @@ export default {
   async asyncData({ app }) {
     try {
       let random = new Random(Random.engines.mt19937().autoSeed())
-      let comicsUrl = app.url.generate(
+      let comicsUrl = app.$url.generate(
         'https://gateway.marvel.com:443/v1/public/comics',
         {
           limit: 8,
           offset: random.integer(1, 42117)
         }
       )
-      let charactersUrl = app.url.generate(
+      let charactersUrl = app.$url.generate(
         'https://gateway.marvel.com:443/v1/public/characters',
         {
           limit: 24,
           offset: random.integer(1, 1491)
         }
       )
-      let seriesUrl = app.url.generate(
+      let seriesUrl = app.$url.generate(
         'https://gateway.marvel.com:443/v1/public/series',
         {
           limit: 8,
           offset: random.integer(1, 10250)
         }
       )
-      let eventsUrl = app.url.generate(
+      let eventsUrl = app.$url.generate(
         'https://gateway.marvel.com:443/v1/public/events',
         {
           limit: 8,
