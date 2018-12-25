@@ -2,9 +2,8 @@ import URI from 'urijs'
 import md5 from 'crypto-js/md5'
 import _ from 'lodash'
 
-export default ({ app }, inject) => {
-  // Set the function directly on the context.app object
-  inject('url', {
+export default (context, inject) => {
+  const url = {
     generate: (url, options = {}) => {
       let apikey = process.env.KEY_PUBLIC
       let ts = Date.now()
@@ -26,5 +25,9 @@ export default ({ app }, inject) => {
 
       return uri
     }
-  })
+  }
+
+  // Set the function directly on the context and context.app object
+  context.$url = url
+  inject('url', url)
 }

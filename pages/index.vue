@@ -103,51 +103,43 @@ export default {
   components: {
     AppCard
   },
-  async asyncData({ app }) {
+  async asyncData({ $marvel }) {
+    let comics = null
+    let characters = null
+    let series = null
+    let events = null
+    let random = new Random(Random.engines.mt19937().autoSeed())
+    let comicsOptions = {
+      limit: 8,
+      offset: random.integer(1, 42117)
+    }
+    let charactersOptions = {
+      limit: 24,
+      offset: random.integer(1, 1491)
+    }
+    let seriesOptions = {
+      limit: 8,
+      offset: random.integer(1, 10250)
+    }
+    let eventsOptions = {
+      limit: 8,
+      offset: random.integer(1, 75)
+    }
+
     try {
-      let random = new Random(Random.engines.mt19937().autoSeed())
-      let comicsUrl = app.$url.generate(
-        'https://gateway.marvel.com:443/v1/public/comics',
-        {
-          limit: 8,
-          offset: random.integer(1, 42117)
-        }
-      )
-      let charactersUrl = app.$url.generate(
-        'https://gateway.marvel.com:443/v1/public/characters',
-        {
-          limit: 24,
-          offset: random.integer(1, 1491)
-        }
-      )
-      let seriesUrl = app.$url.generate(
-        'https://gateway.marvel.com:443/v1/public/series',
-        {
-          limit: 8,
-          offset: random.integer(1, 10250)
-        }
-      )
-      let eventsUrl = app.$url.generate(
-        'https://gateway.marvel.com:443/v1/public/events',
-        {
-          limit: 8,
-          offset: random.integer(1, 75)
-        }
-      )
-
-      let comics = await app.$axios.$get(comicsUrl.toString())
-      let characters = await app.$axios.$get(charactersUrl.toString())
-      let series = await app.$axios.$get(seriesUrl.toString())
-      let events = await app.$axios.$get(eventsUrl.toString())
-
-      return {
-        comics: comics.data.results,
-        characters: characters.data.results,
-        series: series.data.results,
-        events: events.data.results
-      }
+      comics = await $marvel.comics(comicsOptions)
+      characters = await $marvel.characters(charactersOptions)
+      series = await $marvel.series(seriesOptions)
+      events = await $marvel.events(eventsOptions)
     } catch (error) {
       console.log(error)
+    }
+
+    return {
+      comics,
+      characters,
+      series,
+      events
     }
   }
 }

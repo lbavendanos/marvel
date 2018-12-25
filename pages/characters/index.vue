@@ -69,61 +69,47 @@ export default {
   components: {
     AppCard
   },
-  async asyncData({ app, $axios }) {
+  async asyncData({ $marvel }) {
+    let characters = null
+    let search = null
+    let random = new Random(Random.engines.mt19937().autoSeed())
+    let charactersOptions = {
+      limit: 24,
+      offset: random.integer(1, 1491)
+    }
+
     try {
-      let random = new Random(Random.engines.mt19937().autoSeed())
-      let charactersUrl = app.$url.generate(
-        'https://gateway.marvel.com:443/v1/public/characters',
-        {
-          limit: 8,
-          offset: random.integer(1, 1491)
-        }
-      )
-
-      let characters = await $axios.$get(charactersUrl.toString())
-
-      return {
-        characters: characters.data.results,
-        search: null
-      }
+      characters = await $marvel.characters(charactersOptions)
     } catch (error) {
       console.log(error)
+    }
+
+    return {
+      characters,
+      search
     }
   },
   methods: {
     async onSearch() {
-      try {
-        this.characters = await this.getCharacters(this.search)
-      } catch (error) {
-        console.log(error)
-      }
+      this.characters = await this.getCharacters(this.search)
     },
     async clearSearch() {
-      try {
-        this.characters = await this.getCharacters(null)
-      } catch (error) {
-        console.log(error)
-      }
+      this.characters = await this.getCharacters(null)
     },
     async getCharacters(search = null) {
       try {
         let random = new Random(Random.engines.mt19937().autoSeed())
-        let option = {}
+        let options = {}
 
         if (search) {
-          option.nameStartsWith = search
+          options.nameStartsWith = search
         } else {
-          option.limit = 8
-          option.offset = random.integer(1, 1491)
+          options.limit = 8
+          options.offset = random.integer(1, 1491)
         }
 
-        let charactersUrl = this.$url.generate(
-          'https://gateway.marvel.com:443/v1/public/characters',
-          option
-        )
-
-        let { data } = await this.$axios.$get(charactersUrl.toString())
-        return data.results
+        let data = await this.$marvel.characters(options)
+        return data
       } catch (error) {
         console.log(error)
       }

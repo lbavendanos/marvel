@@ -27,7 +27,7 @@ module.exports = {
   /*
     ** Plugins to load before mounting the App
     */
-  plugins: ['@/plugins/url.js'],
+  plugins: ['@/plugins/url.js', '@/plugins/marvel.js'],
 
   /*
     ** Nuxt.js modules
