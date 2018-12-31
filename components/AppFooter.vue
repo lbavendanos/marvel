@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.footer {
+.v-footer {
   margin-top: auto;
 }
 </style>

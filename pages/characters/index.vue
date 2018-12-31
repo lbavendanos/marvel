@@ -25,6 +25,7 @@
               clearable
               label="Search"
               type="text"
+              :append-icon="loading ? 'fa fa-circle-o-notch fa-spin' : ''"
               v-model="search"
               @click:clear="clearSearch"
             ></v-text-field>
@@ -55,6 +56,10 @@
           </a>
         </v-flex>
       </v-layout>
+      <h5
+        v-if="characters.length == 0"
+        class="subheading white--text text-xs-center"
+      >No results were found for your search</h5>
     </v-container>
   </section>
 </template>
@@ -70,6 +75,7 @@ export default {
     AppCard
   },
   async asyncData({ $marvel }) {
+    let loading = false
     let characters = null
     let search = null
     let random = new Random(Random.engines.mt19937().autoSeed())
@@ -86,7 +92,8 @@ export default {
 
     return {
       characters,
-      search
+      search,
+      loading
     }
   },
   methods: {
@@ -97,22 +104,34 @@ export default {
       this.characters = await this.getCharacters(null)
     },
     async getCharacters(search = null) {
+      this.startLoading()
+
+      let data = null
+      let random = new Random(Random.engines.mt19937().autoSeed())
+      let options = {}
+
+      if (search) {
+        options.nameStartsWith = search
+      } else {
+        options.limit = 24
+        options.offset = random.integer(1, 1491)
+      }
+
       try {
-        let random = new Random(Random.engines.mt19937().autoSeed())
-        let options = {}
-
-        if (search) {
-          options.nameStartsWith = search
-        } else {
-          options.limit = 8
-          options.offset = random.integer(1, 1491)
-        }
-
-        let data = await this.$marvel.characters(options)
-        return data
+        data = await this.$marvel.characters(options)
       } catch (error) {
         console.log(error)
       }
+
+      this.endLoading()
+
+      return data
+    },
+    startLoading() {
+      this.loading = true
+    },
+    endLoading() {
+      this.loading = false
     }
   }
 }
