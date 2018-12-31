@@ -45,7 +45,7 @@
           md4
           lg3
         >
-          <a href class="card-link d-block">
+          <nuxt-link :to="`characters/${character.id}`" class="card-link d-block">
             <AppCard
               dark
               :id="character.id"
@@ -53,7 +53,7 @@
               :subtitle="`${character.series.available} series,  ${character.stories.available} stories and ${character.events.available} events`"
               :image="`${character.thumbnail.path}.${character.thumbnail.extension}`"
             />
-          </a>
+          </nuxt-link>
         </v-flex>
       </v-layout>
       <h5
