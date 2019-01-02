@@ -79,13 +79,13 @@ export default {
     let characters = null
     let search = null
     let random = new Random(Random.engines.mt19937().autoSeed())
-    let charactersOptions = {
+    let options = {
       limit: 24,
       offset: random.integer(1, 1491)
     }
 
     try {
-      characters = await $marvel.characters(charactersOptions)
+      characters = await $marvel.characters.get(options)
     } catch (error) {
       console.log(error)
     }
@@ -118,7 +118,7 @@ export default {
       }
 
       try {
-        data = await this.$marvel.characters(options)
+        data = await this.$marvel.characters.get(options)
       } catch (error) {
         console.log(error)
       }

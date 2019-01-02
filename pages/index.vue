@@ -103,7 +103,7 @@ export default {
   components: {
     AppCard
   },
-  async asyncData({ $marvel }) {
+  async asyncData({ $marvel, error }) {
     let comics = null
     let characters = null
     let series = null
@@ -127,12 +127,12 @@ export default {
     }
 
     try {
-      comics = await $marvel.comics(comicsOptions)
-      characters = await $marvel.characters(charactersOptions)
-      series = await $marvel.series(seriesOptions)
-      events = await $marvel.events(eventsOptions)
-    } catch (error) {
-      console.log(error)
+      comics = await $marvel.comics.get(comicsOptions)
+      characters = await $marvel.characters.get(charactersOptions)
+      series = await $marvel.series.get(seriesOptions)
+      events = await $marvel.events.get(eventsOptions)
+    } catch (e) {
+      error(e)
     }
 
     return {

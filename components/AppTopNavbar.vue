@@ -71,6 +71,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+header {
+  z-index: 1;
+}
 .text-decoration-none {
   text-decoration: none;
 }
