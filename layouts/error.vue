@@ -14,9 +14,9 @@
       </svg>
 
       <div class="title">{{ message }}</div>
-      <p v-if="statusCode === 404" class="description">
-        <nuxt-link class="error-link" to="/">Back to the home page</nuxt-link>
-      </p>
+      <!-- <p v-if="statusCode === 404" class="description"> -->
+      <nuxt-link class="error-link" to="/">Back to the home page</nuxt-link>
+      <!-- </p> -->
       <!-- <% if(debug) { %>
       <p class="description" v-else><%= messages.client_error_details %></p>
       <% } %>-->

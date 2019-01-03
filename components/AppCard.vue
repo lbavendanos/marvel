@@ -2,10 +2,10 @@
   <v-card flat dark>
     <v-img :src="image" height="200px"></v-img>
 
-    <v-card-title primary-title>
+    <v-card-title v-if="title || subtitle" primary-title>
       <div>
-        <div class="subheading white--text">{{ card.title }}</div>
-        <span class="body-1 grey--text">{{ card.subtitle }}</span>
+        <div v-if="title" class="subheading white--text">{{ title }}</div>
+        <span v-if="subtitle" class="body-1 grey--text">{{ subtitle }}</span>
       </div>
     </v-card-title>
   </v-card>
@@ -15,18 +15,12 @@
 export default {
   props: {
     id: { type: Number, default: 0 },
-    title: { type: String, default: '' },
-    subtitle: { type: String, default: '' },
-    image: { type: String, default: '' }
+    title: { type: String, default: null },
+    subtitle: { type: String, default: null },
+    image: { type: String, default: null }
   },
   data() {
     return {
-      card: {
-        id: this.id,
-        title: this.title,
-        subtitle: this.subtitle,
-        image: this.imnage
-      },
       show: false
     }
   }
