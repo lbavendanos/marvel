@@ -27,13 +27,15 @@ export default class Base {
 
   async find(id) {
     let url = `${this.constructor.BASE_URL}/${id}`
+    let data = await this.query(url)
 
-    return await this.query(url)
+    return data[0]
   }
 
   async get(options = {}) {
     let url = this.constructor.BASE_URL
+    let data = await this.query(url, options)
 
-    return await this.query(url, options)
+    return data
   }
 }

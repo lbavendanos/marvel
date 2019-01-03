@@ -15,8 +15,8 @@ import Random from 'random-js'
 
 export default {
   async asyncData({ $marvel, params, error }) {
-    // console.log(params)
-    console.log($marvel)
+    // console.log($marvel.characters)
+    // console.log($axios)
     let id = params.id
     let character = null
 
@@ -25,7 +25,7 @@ export default {
     } catch (e) {
       error(e)
     }
-    // console.log(character)
+    console.log(character)
 
     // let random = new Random(Random.engines.mt19937().autoSeed())
   }
