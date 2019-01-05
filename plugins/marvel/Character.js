@@ -7,9 +7,30 @@ export default class Character extends Base {
     super(context)
   }
 
-  async comics(id, options = {}) {
+  async comics(id, params = {}, options = {}) {
     let url = `${this.constructor.BASE_URL}/${id}/comics`
-    let data = await this.query(url, options)
+    let data = await this.query(url, params, options)
+
+    return data
+  }
+
+  async series(id, params = {}, options = {}) {
+    let url = `${this.constructor.BASE_URL}/${id}/series`
+    let data = await this.query(url, params, options)
+
+    return data
+  }
+
+  async stories(id, params = {}, options = {}) {
+    let url = `${this.constructor.BASE_URL}/${id}/stories`
+    let data = await this.query(url, params, options)
+
+    return data
+  }
+
+  async events(id, params = {}, options = {}) {
+    let url = `${this.constructor.BASE_URL}/${id}/events`
+    let data = await this.query(url, params, options)
 
     return data
   }

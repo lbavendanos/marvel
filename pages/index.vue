@@ -22,7 +22,7 @@
       <h1 class="title white--text mb-3 font-weight-black">COMICS</h1>
       <v-layout raw wrap>
         <v-flex class="card-item" v-for="comic in comics" :key="comic.id" xs12 sm6 md4 lg3>
-          <a href class="card-link d-block">
+          <nuxt-link :to="`/comics/${comic.id}`" class="card-link d-block">
             <AppCard
               dark
               :id="comic.id"
@@ -30,11 +30,11 @@
               :subtitle="`${comic.creators.available} creators, ${comic.characters.available} characters, ${comic.stories.available} stories and ${comic.events.available} events`"
               :image="`${comic.thumbnail.path}.${comic.thumbnail.extension}`"
             />
-          </a>
+          </nuxt-link>
         </v-flex>
       </v-layout>
       <v-layout class="py-2" raw wrap justify-center>
-        <v-btn color="red white--text" large>SEE MORE</v-btn>
+        <v-btn nuxt to="/comics" color="red white--text" large>SEE MORE</v-btn>
       </v-layout>
     </v-container>
     <div class="d-block container-characters">
@@ -42,13 +42,15 @@
         <h1 class="title white--text mb-3">CHARACTERS</h1>
         <v-layout align-center wrap>
           <v-flex v-for="character in characters" :key="character.id" xs3 sm2 md1>
-            <v-avatar color="gray" size="60">
-              <v-img :src="`${character.thumbnail.path}.${character.thumbnail.extension}`"></v-img>
-            </v-avatar>
+            <nuxt-link :to="`/characters/${character.id}`" class="d-block">
+              <v-avatar color="gray" size="60">
+                <v-img :src="`${character.thumbnail.path}.${character.thumbnail.extension}`"></v-img>
+              </v-avatar>
+            </nuxt-link>
           </v-flex>
         </v-layout>
         <v-layout class="py-2" raw wrap justify-center>
-          <v-btn color="red white--text" large>SEE MORE</v-btn>
+          <v-btn nuxt to="/characters" color="red white--text" large>SEE MORE</v-btn>
         </v-layout>
       </v-container>
     </div>
@@ -56,7 +58,7 @@
       <h1 class="title white--text mb-3 font-weight-black">SERIES</h1>
       <v-layout raw wrap>
         <v-flex class="card-item" v-for="serie in series" :key="serie.id" xs12 sm6 md4 lg3>
-          <a href class="card-link d-block">
+          <nuxt-link :to="`/series/${serie.id}`" class="card-link d-block">
             <AppCard
               dark
               :id="serie.id"
@@ -64,18 +66,18 @@
               :subtitle="`${serie.creators.available} creators, ${serie.characters.available} characters, ${serie.stories.available} stories, ${serie.comics.available} comics and ${serie.events.available} events`"
               :image="`${serie.thumbnail.path}.${serie.thumbnail.extension}`"
             />
-          </a>
+          </nuxt-link>
         </v-flex>
       </v-layout>
       <v-layout class="py-2" raw wrap justify-center>
-        <v-btn color="red white--text" large>SEE MORE</v-btn>
+        <v-btn nuxt to="/series" color="red white--text" large>SEE MORE</v-btn>
       </v-layout>
     </v-container>
     <v-container grid-list-lg py-5>
       <h1 class="title white--text mb-3 font-weight-black">EVENTS</h1>
       <v-layout raw wrap>
         <v-flex class="card-item" v-for="event in events" :key="event.id" xs12 sm6 md4 lg3>
-          <a href class="card-link d-block">
+          <nuxt-link :to="`/events/${event.id}`" class="card-link d-block">
             <AppCard
               dark
               :id="event.id"
@@ -83,11 +85,11 @@
               :subtitle="`${event.creators.available} creators, ${event.characters.available} characters, ${event.stories.available} stories, ${event.comics.available} comics and ${event.series.available} series`"
               :image="`${event.thumbnail.path}.${event.thumbnail.extension}`"
             />
-          </a>
+          </nuxt-link>
         </v-flex>
       </v-layout>
       <v-layout class="py-2" raw wrap justify-center>
-        <v-btn color="red white--text" large>SEE MORE</v-btn>
+        <v-btn nuxt to="/events" color="red white--text" large>SEE MORE</v-btn>
       </v-layout>
     </v-container>
   </section>
@@ -149,5 +151,12 @@ export default {
 .container-characters {
   background: url(https://community.algolia.com/marvel-search/img/profile-bg-default.gif)
     center center / cover no-repeat;
+}
+.v-avatar {
+  transition: transform 0.5s;
+  &:hover {
+    transform: scale(1.1);
+    z-index: 1;
+  }
 }
 </style>

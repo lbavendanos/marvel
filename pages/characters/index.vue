@@ -49,8 +49,8 @@
             <AppCard
               dark
               :id="character.id"
-              :title="character.name"
-              :subtitle="`${character.series.available} series,  ${character.stories.available} stories and ${character.events.available} events`"
+              :title="character.name || 'none'"
+              :subtitle="`${character.comics.available} comics, ${character.series.available} series,  ${character.stories.available} stories and ${character.events.available} events`"
               :image="`${character.thumbnail.path}.${character.thumbnail.extension}`"
             />
           </nuxt-link>
@@ -74,7 +74,7 @@ export default {
   components: {
     AppCard
   },
-  async asyncData({ $marvel }) {
+  async asyncData({ $marvel, error }) {
     let loading = false
     let characters = null
     let search = null
@@ -87,7 +87,7 @@ export default {
     try {
       characters = await $marvel.characters.get(options)
     } catch (error) {
-      console.log(error)
+      error(e)
     }
 
     return {
@@ -120,7 +120,7 @@ export default {
       try {
         data = await this.$marvel.characters.get(options)
       } catch (error) {
-        console.log(error)
+        $nuxt.error(error)
       }
 
       this.endLoading()

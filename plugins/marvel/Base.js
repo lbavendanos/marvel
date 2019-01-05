@@ -5,13 +5,14 @@ export default class Base {
     this.context = context
   }
 
-  async query(url, options = {}) {
-    let urlWithParameters = this.context.$url.generate(url, options)
+  async query(url, params = {}, options = {}) {
+    let urlWithParameters = this.context.$url.generate(url, params)
     let results = null
 
     try {
       let { data } = await this.context.$axios.$get(
-        urlWithParameters.toString()
+        urlWithParameters.toString(),
+        options
       )
       results = data.results
     } catch ({ response }) {
@@ -25,16 +26,16 @@ export default class Base {
     return results
   }
 
-  async find(id) {
+  async find(id, options = {}) {
     let url = `${this.constructor.BASE_URL}/${id}`
-    let data = await this.query(url)
+    let data = await this.query(url, {}, options)
 
     return data[0]
   }
 
-  async get(options = {}) {
+  async get(params = {}, options = {}) {
     let url = this.constructor.BASE_URL
-    let data = await this.query(url, options)
+    let data = await this.query(url, params, options)
 
     return data
   }
