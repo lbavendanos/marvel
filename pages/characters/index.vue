@@ -50,7 +50,7 @@
               dark
               :id="character.id"
               :title="character.name || 'none'"
-              :subtitle="`${character.comics.available} comics, ${character.series.available} series,  ${character.stories.available} stories and ${character.events.available} events`"
+              :subtitle="`${character.comics.available} comics, ${character.series.available} series, ${character.stories.available} stories and ${character.events.available} events`"
               :image="`${character.thumbnail.path}.${character.thumbnail.extension}`"
             />
           </nuxt-link>
