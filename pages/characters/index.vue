@@ -67,8 +67,9 @@
 <script>
 // Import components
 import AppCard from '@/components/AppCard'
-// Import other libraries
-import Random from 'random-js'
+
+const limit = 24
+const available = 1491
 
 export default {
   components: {
@@ -78,14 +79,12 @@ export default {
     let loading = false
     let characters = null
     let search = null
-    let random = new Random(Random.engines.mt19937().autoSeed())
-    let options = {
-      limit: 24,
-      offset: random.integer(1, 1491)
-    }
 
     try {
-      characters = await $marvel.characters.get(options)
+      characters = await $marvel.characters.get({
+        limit,
+        offset: $marvel.random(available, limit)
+      })
     } catch (error) {
       error(e)
     }
@@ -94,6 +93,40 @@ export default {
       characters,
       search,
       loading
+    }
+  },
+  head() {
+    const url = `${process.env.APP_URL}/characters`
+    const title = `${process.env.APP_NAME} - Characters`
+    const description = `${process.env.APP_NAME} - Characters`
+    // const image = `${this.character.thumbnail.path}.${
+    //   this.character.thumbnail.extension
+    // }`
+    return {
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        { hid: 'og:url', property: 'og:url', content: url },
+        { hid: 'og:title', property: 'og:title', content: title },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: description
+        },
+        // { hid: 'og:image', property: 'og:image', content: image },
+        { hid: 'twitter:url', property: 'twitter:url', content: url },
+        { hid: 'twitter:title', property: 'twitter:title', content: title },
+        {
+          hid: 'twitter:description',
+          property: 'twitter:description',
+          content: description
+        }
+        // { hid: 'twitter:image', property: 'twitter:image', content: image }
+      ]
     }
   },
   methods: {
@@ -107,18 +140,17 @@ export default {
       this.startLoading()
 
       let data = null
-      let random = new Random(Random.engines.mt19937().autoSeed())
-      let options = {}
+      let params = {}
 
       if (search) {
-        options.nameStartsWith = search
+        params.nameStartsWith = search
       } else {
-        options.limit = 24
-        options.offset = random.integer(1, 1491)
+        params.limit = limit
+        params.offset = this.$marvel.random(available, limit)
       }
 
       try {
-        data = await this.$marvel.characters.get(options)
+        data = await this.$marvel.characters.get(params)
       } catch (error) {
         $nuxt.error(error)
       }

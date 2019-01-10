@@ -98,41 +98,50 @@
 <script>
 // Import components
 import AppCard from '@/components/AppCard'
-// Import other libraries
-import Random from 'random-js'
 
 export default {
   components: {
     AppCard
   },
   async asyncData({ $marvel, error }) {
+    const options = { progress: false }
     let comics = null
     let characters = null
     let series = null
     let events = null
-    let random = new Random(Random.engines.mt19937().autoSeed())
-    let comicsOptions = {
-      limit: 8,
-      offset: random.integer(1, 42117)
-    }
-    let charactersOptions = {
-      limit: 24,
-      offset: random.integer(1, 1491)
-    }
-    let seriesOptions = {
-      limit: 8,
-      offset: random.integer(1, 10250)
-    }
-    let eventsOptions = {
-      limit: 8,
-      offset: random.integer(1, 75)
-    }
 
     try {
-      comics = await $marvel.comics.get(comicsOptions)
-      characters = await $marvel.characters.get(charactersOptions)
-      series = await $marvel.series.get(seriesOptions)
-      events = await $marvel.events.get(eventsOptions)
+      comics = await $marvel.comics.get(
+        {
+          limit: 8,
+          offset: $marvel.random(42117, 8)
+        },
+        options
+      )
+
+      characters = await $marvel.characters.get(
+        {
+          limit: 24,
+          offset: $marvel.random(1491, 24)
+        },
+        options
+      )
+
+      series = await $marvel.series.get(
+        {
+          limit: 8,
+          offset: $marvel.random(10250, 8)
+        },
+        options
+      )
+
+      events = await $marvel.events.get(
+        {
+          limit: 8,
+          offset: $marvel.random(75, 8)
+        },
+        options
+      )
     } catch (e) {
       error(e)
     }
