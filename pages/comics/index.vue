@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-img src="https://comic-barcelona.com/IMAGES_301/23.jpg">
+    <v-img :src="require('@/assets/images/banner3.jpg')">
       <v-container fill-height class="white--text">
         <v-layout align-center>
           <v-flex>
@@ -91,9 +91,8 @@ export default {
     const url = `${process.env.APP_URL}/comics`
     const title = `${process.env.APP_NAME} - Comics`
     const description = `${process.env.APP_NAME} - Comics`
-    // const image = `${this.character.thumbnail.path}.${
-    //   this.character.thumbnail.extension
-    // }`
+    const image = require('@/assets/images/logo.svg')
+
     return {
       title,
       meta: [
@@ -109,15 +108,15 @@ export default {
           property: 'og:description',
           content: description
         },
-        // { hid: 'og:image', property: 'og:image', content: image },
+        { hid: 'og:image', property: 'og:image', content: image },
         { hid: 'twitter:url', property: 'twitter:url', content: url },
         { hid: 'twitter:title', property: 'twitter:title', content: title },
         {
           hid: 'twitter:description',
           property: 'twitter:description',
           content: description
-        }
-        // { hid: 'twitter:image', property: 'twitter:image', content: image }
+        },
+        { hid: 'twitter:image', property: 'twitter:image', content: image }
       ]
     }
   },

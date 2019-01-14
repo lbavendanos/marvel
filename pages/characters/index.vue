@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-img src="https://terrigen-cdn-dev.marvel.com/content/prod/2x/characters_art_mas_dsk_01.jpg">
+    <v-img :src="require('@/assets/images/banner2.jpg')">
       <v-container fill-height class="white--text">
         <v-layout align-center>
           <v-flex>
@@ -99,9 +99,8 @@ export default {
     const url = `${process.env.APP_URL}/characters`
     const title = `${process.env.APP_NAME} - Characters`
     const description = `${process.env.APP_NAME} - Characters`
-    // const image = `${this.character.thumbnail.path}.${
-    //   this.character.thumbnail.extension
-    // }`
+    const image = require('@/assets/images/logo.svg')
+
     return {
       title,
       meta: [
@@ -117,15 +116,15 @@ export default {
           property: 'og:description',
           content: description
         },
-        // { hid: 'og:image', property: 'og:image', content: image },
+        { hid: 'og:image', property: 'og:image', content: image },
         { hid: 'twitter:url', property: 'twitter:url', content: url },
         { hid: 'twitter:title', property: 'twitter:title', content: title },
         {
           hid: 'twitter:description',
           property: 'twitter:description',
           content: description
-        }
-        // { hid: 'twitter:image', property: 'twitter:image', content: image }
+        },
+        { hid: 'twitter:image', property: 'twitter:image', content: image }
       ]
     }
   },

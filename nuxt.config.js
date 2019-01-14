@@ -4,8 +4,7 @@ const description = 'Marvel'
 const author = 'lbavendanos'
 const twitter = '@lbavendanos'
 const url = process.env.APP_URL
-const image =
-  'https://upload.wikimedia.org/wikipedia/commons/0/04/MarvelLogo.svg'
+// const image = require('@/assets/images/logo.svg')
 
 module.exports = {
   mode: 'universal',
@@ -30,7 +29,7 @@ module.exports = {
         property: 'og:description',
         content: description
       },
-      { hid: 'og:image', property: 'og:image', content: image },
+      // { hid: 'og:image', property: 'og:image', content: image },
       { hid: 'twitter:url', property: 'twitter:url', content: url },
       { hid: 'twitter:site', property: 'twitter:site', content: twitter },
       { hid: 'twitter:creator', property: 'twitter:creator', content: twitter },
@@ -39,8 +38,8 @@ module.exports = {
         hid: 'twitter:description',
         property: 'twitter:description',
         content: description
-      },
-      { hid: 'twitter:image', property: 'twitter:image', content: image }
+      }
+      // { hid: 'twitter:image', property: 'twitter:image', content: image }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },

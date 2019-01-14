@@ -1,8 +1,6 @@
 <template>
   <section>
-    <v-img
-      src="https://i.annihil.us/u/prod/marvel/html_pages_assets/mu-sellpage/prod/images/bg-topper-desktop.jpg"
-    >
+    <v-img :src="require('@/assets/images/banner1.jpg')">
       <v-container fill-height class="white--text">
         <v-layout align-center>
           <v-flex>
@@ -151,6 +149,39 @@ export default {
       characters,
       series,
       events
+    }
+  },
+  head() {
+    // const url = `${process.env.APP_URL}/characters`
+    // const title = `${process.env.APP_NAME} - Characters`
+    // const description = `${process.env.APP_NAME} - Characters`
+    const image = require('@/assets/images/logo.svg')
+
+    return {
+      // title,
+      meta: [
+        // {
+        //   hid: 'description',
+        //   name: 'description',
+        //   content: description
+        // },
+        // { hid: 'og:url', property: 'og:url', content: url },
+        // { hid: 'og:title', property: 'og:title', content: title },
+        // {
+        //   hid: 'og:description',
+        //   property: 'og:description',
+        //   content: description
+        // },
+        { hid: 'og:image', property: 'og:image', content: image },
+        // { hid: 'twitter:url', property: 'twitter:url', content: url },
+        // { hid: 'twitter:title', property: 'twitter:title', content: title },
+        // {
+        //   hid: 'twitter:description',
+        //   property: 'twitter:description',
+        //   content: description
+        // }
+        { hid: 'twitter:image', property: 'twitter:image', content: image }
+      ]
     }
   }
 }
