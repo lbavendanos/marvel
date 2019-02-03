@@ -1,13 +1,11 @@
 <template>
   <section>
-    <v-img :src="require('@/assets/images/banner4.jpg')">
+    <v-img :src="require('@/assets/images/banner3.jpg')">
       <v-container fill-height class="white--text">
         <v-layout align-center>
           <v-flex>
-            <h3 class="display-3 text-xs-center">COMICS</h3>
-            <h4
-              class="text-xs-center subheading"
-            >Dive into the dazzling domain of all the classic comics you love - and those you’ll soon discover!</h4>
+            <h3 class="display-3 text-xs-center">CREATOS</h3>
+            <h4 class="text-xs-center subheading">Discover the creators of amazing comics</h4>
           </v-flex>
         </v-layout>
       </v-container>
@@ -16,7 +14,7 @@
       <v-container>
         <h3
           class="subheading white--text text-xs-center font-weight-light"
-        >Search your favorite comic</h3>
+        >Search your favorite creator</h3>
         <v-layout row wrap align-center justify-center>
           <v-flex xs12 sm8>
             <v-text-field
@@ -34,22 +32,22 @@
       </v-container>
     </v-form>
     <v-container grid-list-lg pt-2 pb-5>
-      <h1 class="title white--text mb-3 font-weight-black">SOME COMICS</h1>
+      <h1 class="title white--text mb-3 font-weight-black">SOME CREATORS</h1>
       <v-layout raw wrap>
-        <v-flex class="card-item" v-for="comic in comics" :key="comic.id" xs12 sm6 md4 lg3>
-          <nuxt-link :to="`comics/${comic.id}`" class="card-link d-block">
+        <v-flex class="card-item" v-for="creator in creators" :key="creator.id" xs12 sm6 md4 lg3>
+          <nuxt-link :to="`creators/${creator.id}`" class="card-link d-block">
             <AppCard
               dark
-              :id="comic.id"
-              :title="comic.title || 'none'"
-              :subtitle="`${comic.creators.available} creators, ${comic.characters.available} characters, ${comic.stories.available} stories and ${comic.events.available} events`"
-              :image="`${comic.thumbnail.path}.${comic.thumbnail.extension}`"
+              :id="creator.id"
+              :title="creator.fullName || 'none'"
+              :subtitle="`${creator.comics.available} comics, ${creator.series.available} series, ${creator.stories.available} stories and ${creator.events.available} events`"
+              :image="`${creator.thumbnail.path}.${creator.thumbnail.extension}`"
             />
           </nuxt-link>
         </v-flex>
       </v-layout>
       <h5
-        v-if="comics.length == 0"
+        v-if="creators.length == 0"
         class="subheading white--text text-xs-center"
       >No results were found for your search</h5>
     </v-container>
@@ -61,7 +59,7 @@
 import AppCard from '@/components/AppCard'
 
 const limit = 24
-const available = 42117
+const available = 6198
 
 export default {
   components: {
@@ -69,11 +67,11 @@ export default {
   },
   async asyncData({ $marvel, error }) {
     let loading = false
-    let comics = null
+    let creators = null
     let search = null
 
     try {
-      comics = await $marvel.comics.get({
+      creators = await $marvel.creators.get({
         limit,
         offset: $marvel.random(available, limit)
       })
@@ -82,15 +80,15 @@ export default {
     }
 
     return {
-      comics,
+      creators,
       search,
       loading
     }
   },
   head() {
-    const url = `${process.env.APP_URL}/comics`
-    const title = `${process.env.APP_NAME} - Comics`
-    const description = `${process.env.APP_NAME} - Comics`
+    const url = `${process.env.APP_URL}/creators`
+    const title = `${process.env.APP_NAME} - Creators`
+    const description = `${process.env.APP_NAME} - Creators`
     const image = require('@/assets/images/logo.svg')
 
     return {
@@ -122,26 +120,26 @@ export default {
   },
   methods: {
     async onSearch() {
-      this.comics = await this.getComics(this.search)
+      this.creators = await this.getCreators(this.search)
     },
     async clearSearch() {
-      this.comics = await this.getComics(null)
+      this.creators = await this.getCreators(null)
     },
-    async getComics(search = null) {
+    async getCreators(search = null) {
       this.startLoading()
 
       let data = null
       let params = {}
 
       if (search) {
-        params.titleStartsWith = search
+        params.nameStartsWith = search
       } else {
         params.limit = limit
         params.offset = this.$marvel.random(available, limit)
       }
 
       try {
-        data = await this.$marvel.comics.get(params)
+        data = await this.$marvel.creators.get(params)
       } catch (error) {
         $nuxt.error(error)
       }
