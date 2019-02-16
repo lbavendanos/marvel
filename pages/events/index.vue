@@ -1,13 +1,13 @@
 <template>
   <section>
-    <v-img :src="require('@/assets/images/banner3.jpg')">
+    <v-img :src="require('@/assets/images/banner5.jpg')">
       <v-container 
         fill-height 
         class="white--text">
         <v-layout align-center>
           <v-flex>
-            <h3 class="display-3 text-xs-center">CREATORS</h3>
-            <h4 class="text-xs-center subheading">Discover the creators of amazing comics</h4>
+            <h3 class="display-3 text-xs-center">EVENTS</h3>
+            <h4 class="text-xs-center subheading">Discover the events of amazing comics</h4>
           </v-flex>
         </v-layout>
       </v-container>
@@ -16,7 +16,7 @@
       <v-container>
         <h3
           class="subheading white--text text-xs-center font-weight-light"
-        >Search your favorite creator</h3>
+        >Search your favorite event</h3>
         <v-layout 
           row 
           wrap 
@@ -43,33 +43,33 @@
       grid-list-lg 
       pt-2 
       pb-5>
-      <h1 class="title white--text mb-3 font-weight-black">SOME CREATORS</h1>
+      <h1 class="title white--text mb-3 font-weight-black">SOME EVENTS</h1>
       <v-layout 
         raw 
         wrap>
         <v-flex 
-          v-for="creator in creators" 
-          :key="creator.id" 
+          v-for="event in events" 
+          :key="event.id" 
           class="card-item" 
           xs12 
           sm6 
           md4 
           lg3>
           <nuxt-link 
-            :to="`creators/${creator.id}`" 
+            :to="`events/${event.id}`" 
             class="card-link d-block">
             <AppCard
-              :id="creator.id"
-              :title="creator.fullName || 'none'"
-              :subtitle="`${creator.comics.available} comics, ${creator.series.available} series, ${creator.stories.available} stories and ${creator.events.available} events`"
-              :image="`${creator.thumbnail.path}.${creator.thumbnail.extension}`"
+              :id="event.id"
+              :title="event.title || 'none'"
+              :subtitle="`${event.creators.available} creators, ${event.characters.available} characters, ${event.stories.available} stories, ${event.comics.available} comics and ${event.series.available} series`"
+              :image="`${event.thumbnail.path}.${event.thumbnail.extension}`"
               dark
             />
           </nuxt-link>
         </v-flex>
       </v-layout>
       <h5
-        v-if="creators.length == 0"
+        v-if="events.length == 0"
         class="subheading white--text text-xs-center"
       >No results were found for your search</h5>
     </v-container>
@@ -81,7 +81,7 @@
 import AppCard from '@/components/AppCard'
 
 const limit = 24
-const available = 6198
+const available = 75
 
 export default {
   components: {
@@ -89,11 +89,11 @@ export default {
   },
   async asyncData({ $marvel, error }) {
     let loading = false
-    let creators = null
+    let events = null
     let search = null
 
     try {
-      creators = await $marvel.creators.get({
+      events = await $marvel.events.get({
         limit,
         offset: $marvel.random(available, limit)
       })
@@ -102,13 +102,13 @@ export default {
     }
 
     return {
-      creators,
+      events,
       search,
       loading
     }
   },
   head() {
-    const url = `${process.env.APP_URL}/creators`
+    const url = `${process.env.APP_URL}/events`
     const title = `${process.env.APP_NAME} - Creators`
     const description = `${process.env.APP_NAME} - Creators`
     const image = require('@/assets/images/logo.svg')
@@ -142,12 +142,12 @@ export default {
   },
   methods: {
     async onSearch() {
-      this.creators = await this.getCreators(this.search)
+      this.events = await this.getEvents(this.search)
     },
     async clearSearch() {
-      this.creators = await this.getCreators(null)
+      this.events = await this.getEvents(null)
     },
-    async getCreators(search = null) {
+    async getEvents(search = null) {
       this.startLoading()
 
       let data = null
@@ -161,7 +161,7 @@ export default {
       }
 
       try {
-        data = await this.$marvel.creators.get(params)
+        data = await this.$marvel.events.get(params)
       } catch (error) {
         $nuxt.error(error)
       }
