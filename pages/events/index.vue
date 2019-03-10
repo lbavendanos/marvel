@@ -109,8 +109,8 @@ export default {
   },
   head() {
     const url = `${process.env.APP_URL}/events`
-    const title = `${process.env.APP_NAME} - Creators`
-    const description = `${process.env.APP_NAME} - Creators`
+    const title = `${process.env.APP_NAME} - Events`
+    const description = `${process.env.APP_NAME} - Events`
     const image = require('@/assets/images/logo.svg')
 
     return {
