@@ -5,18 +5,17 @@
         fill-height 
         class="white--text">
         <v-layout align-center>
-          <v-flex>
-            <h3 class="display-3">Welcome to the site</h3>
+          <v-flex class="text-xs-center">
+            <h3 class="display-3">Welcome to the Marvel site</h3>
             <span
               class="subheading"
-            >Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
-            <v-divider class="my-3"/>
-            <div class="title mb-3">Check out our newest features!</div>
-
-            <v-btn 
-              class="mx-0" 
-              color="grey darken-3 white--text" 
-              large>See more</v-btn>
+            >Browse Marvel characters, comics, creators, events and television series and more.</span>
+            <!-- <v-divider class="my-3"/> -->
+            <!-- <div class="title mb-3">Check out our newest features!</div> -->
+            <!-- <v-btn
+              class="mx-0"
+              color="grey darken-3 white--text"
+            large>See more</v-btn>-->
           </v-flex>
         </v-layout>
       </v-container>
@@ -61,7 +60,10 @@
           large>SEE MORE</v-btn>
       </v-layout>
     </v-container>
-    <div class="d-block container-characters">
+    <div
+      :style="{background: `url(${require('@/assets/images/banner7.jpg')}) center center / cover no-repeat;`}"
+      class="d-block container-characters"
+    >
       <v-container 
         grid-list-lg 
         py-5>
@@ -278,8 +280,9 @@ export default {
 
 <style lang="scss" scoped>
 .container-characters {
-  background: url(https://community.algolia.com/marvel-search/img/profile-bg-default.gif)
-    center center / cover no-repeat;
+  // background: url(https://community.algolia.com/marvel-search/img/profile-bg-default.gif)
+  // background: url('./_nuxt/assets/images/banner7.jpg') center center / cover
+  // no-repeat;
 }
 .v-avatar {
   transition: transform 0.5s;

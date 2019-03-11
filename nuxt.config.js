@@ -1,6 +1,7 @@
 const name = process.env.APP_NAME
 const title = 'Marvel'
-const description = 'Marvel'
+const description =
+  'Browse Marvel characters, comics, creators, events and television series and more.'
 const author = 'lbavendanos'
 const twitter = '@lbavendanos'
 const url = process.env.APP_URL
