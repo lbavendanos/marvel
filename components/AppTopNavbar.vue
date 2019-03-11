@@ -5,7 +5,7 @@
       color="red">
       <v-toolbar-side-icon 
         class="hidden-md-and-up" 
-        @click.stop="drawer = !drawer"/>
+        @click.prevent="drawer = !drawer"/>
       <nuxt-link
         flat
         color="white"
@@ -40,10 +40,10 @@
       class="red">
       <v-list class="pa-1">
         <v-list-tile 
-          to="/" 
           active-class 
           exact 
-          nuxt>
+          nuxt 
+          @click.prevent="redirectTo('/')">
           <v-list-tile-content class="title">
             <v-list-tile-title>{{ title }}</v-list-tile-title>
           </v-list-tile-content>
@@ -60,12 +60,13 @@
         class="pt-0" 
         dense>
         <v-divider/>
-        <v-list-tile 
-          v-for="item in items" 
-          :key="item.title" 
-          :to="item.to" 
-          exact 
-          nuxt>
+        <v-list-tile
+          v-for="item in items"
+          :key="item.title"
+          exact
+          nuxt
+          @click.prevent="redirectTo(item.to)"
+        >
           <v-list-tile-content>
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
@@ -86,9 +87,15 @@ export default {
         { title: 'Comics', to: '/comics', icon: 'question_answer' },
         { title: 'Creators', to: '/creators', icon: 'question_answer' },
         { title: 'Events', to: '/events', icon: 'question_answer' },
-        { title: 'Series', to: '/series', icon: 'question_answer' },
-        { title: 'Stories', to: '/stories', icon: 'question_answer' }
+        { title: 'Series', to: '/series', icon: 'question_answer' }
+        // { title: 'Stories', to: '/stories', icon: 'question_answer' }
       ]
+    }
+  },
+  methods: {
+    redirectTo(to) {
+      this.drawer = !this.drawer
+      this.$router.push(to)
     }
   }
 }
