@@ -41,7 +41,7 @@
             class="card-link d-block">
             <AppCard
               :id="comic.id"
-              :title="comic.title"
+              :title="comic.title || 'none'"
               :subtitle="`${comic.creators.available} creators, ${comic.characters.available} characters, ${comic.stories.available} stories and ${comic.events.available} events`"
               :image="`${comic.thumbnail.path}.${comic.thumbnail.extension}`"
               dark
@@ -119,7 +119,7 @@
             class="card-link d-block">
             <AppCard
               :id="serie.id"
-              :title="serie.title"
+              :title="serie.title || 'none'"
               :subtitle="`${serie.creators.available} creators, ${serie.characters.available} characters, ${serie.stories.available} stories, ${serie.comics.available} comics and ${serie.events.available} events`"
               :image="`${serie.thumbnail.path}.${serie.thumbnail.extension}`"
               dark
@@ -159,7 +159,7 @@
             class="card-link d-block">
             <AppCard
               :id="event.id"
-              :title="event.title"
+              :title="event.title || 'none'"
               :subtitle="`${event.creators.available} creators, ${event.characters.available} characters, ${event.stories.available} stories, ${event.comics.available} comics and ${event.series.available} series`"
               :image="`${event.thumbnail.path}.${event.thumbnail.extension}`"
               dark

@@ -8,10 +8,10 @@
           xs12 
           pa-2 
           class="white--text">
-          <h1 class="display-1 mb-2">{{ event.title }}</h1>
+          <h1 class="display-1 mb-2">{{ serie.title }}</h1>
           <p
             class="subheading font-weight-light"
-          >{{ event.description || 'This event does not have any description' }}</p>
+          >{{ serie.description || 'This serie does not have any description' }}</p>
         </v-flex>
       </v-layout>
       <v-layout 
@@ -23,7 +23,7 @@
           md6 
           pa-4>
           <v-img 
-            :src="`${event.thumbnail.path}.${event.thumbnail.extension}`" 
+            :src="`${serie.thumbnail.path}.${serie.thumbnail.extension}`" 
             aspect-ratio="1">
             <v-layout 
               slot="placeholder" 
@@ -43,13 +43,13 @@
           md6 
           pa-4>
           <v-container 
-            v-if="event.comics.available > 0" 
+            v-if="serie.comics.available > 0" 
             class="white--text" 
             grid-list-lg 
             pa-0>
             <h2 class="subheading red--text text-xs-left pb-1">
               COMICS:
-              <span class="white--text">{{ event.comics.available }}</span>
+              <span class="white--text">{{ serie.comics.available }}</span>
             </h2>
             <h3
               class="caption font-weight-light text-xs-left pb-1"
@@ -81,13 +81,13 @@
             </v-layout>
           </v-container>
           <v-container 
-            v-if="event.characters.available > 0" 
+            v-if="serie.characters.available > 0" 
             class="white--text" 
             grid-list-lg 
             pa-0>
             <h2 class="subheading red--text text-xs-left pb-1">
               CHARACTERS:
-              <span class="white--text">{{ event.characters.available }}</span>
+              <span class="white--text">{{ serie.characters.available }}</span>
             </h2>
             <h3
               class="caption font-weight-light text-xs-left pb-1"
@@ -120,13 +120,13 @@
             </v-layout>
           </v-container>
           <v-container 
-            v-if="event.creators.available > 0" 
+            v-if="serie.creators.available > 0" 
             class="white--text" 
             grid-list-lg 
             pa-0>
             <h2 class="subheading red--text text-xs-left pb-1">
               CREATORS:
-              <span class="white--text">{{ event.creators.available }}</span>
+              <span class="white--text">{{ serie.creators.available }}</span>
             </h2>
             <h3
               class="caption font-weight-light text-xs-left pb-1"
@@ -159,36 +159,36 @@
             </v-layout>
           </v-container>
           <v-container 
-            v-if="event.series.available > 0" 
+            v-if="serie.events.available > 0" 
             class="white--text" 
             grid-list-lg 
             pa-0>
             <h2 class="subheading red--text text-xs-left pb-1">
-              SERIES:
-              <span class="white--text">{{ event.series.available }}</span>
+              EVENTS:
+              <span class="white--text">{{ serie.events.available }}</span>
             </h2>
             <h3
               class="caption font-weight-light text-xs-left pb-1"
-            >The first {{ limit }} series will be shown randomly</h3>
+            >The first {{ limit }} events will be shown randomly</h3>
             <v-layout 
               raw 
               wrap>
               <v-flex 
-                v-for="serie in series" 
-                :key="serie.id" 
+                v-for="event in events" 
+                :key="event.id" 
                 class="card-item" 
                 xs12 
                 sm6 
                 md4 
                 lg3>
                 <nuxt-link 
-                  :to="`/series/${serie.id}`" 
+                  :to="`/events/${event.id}`" 
                   class="card-link d-block">
                   <AppCard
-                    :id="serie.id"
-                    :image="`${serie.thumbnail.path}.${serie.thumbnail.extension}`"
-                    :title="serie.title"
-                    :subtitle="`${serie.events.available} events, ${serie.characters.available} characters, ${serie.stories.available} stories and ${serie.events.available} events`"
+                    :id="event.id"
+                    :image="`${event.thumbnail.path}.${event.thumbnail.extension}`"
+                    :title="event.title"
+                    :subtitle="`${event.creators.available} creators, ${event.comics.available} comics, ${event.series.available} series, ${event.comics.available} comics and ${event.stories.available} stories`"
                     dark
                     text-class="hidden-md-and-up"
                   />
@@ -197,13 +197,13 @@
             </v-layout>
           </v-container>
           <v-container 
-            v-if="event.stories.available > 0" 
+            v-if="serie.stories.available > 0" 
             class="white--text" 
             grid-list-lg 
             pa-0>
             <h2 class="subheading red--text text-xs-left pb-1">
               STORIES:
-              <span class="white--text">{{ event.stories.available }}</span>
+              <span class="white--text">{{ serie.stories.available }}</span>
             </h2>
             <h3
               class="caption font-weight-light text-xs-left pb-1"
@@ -218,9 +218,9 @@
         justify-center>
         <v-btn 
           nuxt 
-          to="/events" 
+          to="/series" 
           color="grey darken-3 white--text" 
-          large>BACK TO THE EVENTS SECTION</v-btn>
+          large>BACK TO THE SERIES SECTION</v-btn>
       </v-layout>
     </v-container>
   </section>
@@ -239,20 +239,20 @@ export default {
     const limit = 4
     const options = { progress: false }
 
-    let event = null
+    let serie = null
     let creators = null
     let characters = null
     let stories = null
     let comics = null
-    let series = null
+    let events = null
 
     try {
-      event = await $marvel.events.find(id, options)
-      const creatorsAvailable = event.creators.available
-      const charactersAvailable = event.characters.available
-      const storiesAvailable = event.stories.available
-      const comicsAvailable = event.comics.available
-      const seriesAvailable = event.series.available
+      serie = await $marvel.series.find(id, options)
+      const creatorsAvailable = serie.creators.available
+      const charactersAvailable = serie.characters.available
+      const storiesAvailable = serie.stories.available
+      const comicsAvailable = serie.comics.available
+      const eventsAvailable = serie.events.available
 
       if (creatorsAvailable > 0) {
         creators = await $marvel.events.creators(
@@ -298,12 +298,12 @@ export default {
         )
       }
 
-      if (seriesAvailable > 0) {
-        series = await $marvel.events.series(
+      if (eventsAvailable > 0) {
+        events = await $marvel.events.events(
           id,
           {
             limit,
-            offset: $marvel.random(seriesAvailable, limit)
+            offset: $marvel.random(eventsAvailable, limit)
           },
           options
         )
@@ -312,14 +312,14 @@ export default {
       error(e)
     }
 
-    return { limit, event, creators, characters, stories, comics, series }
+    return { limit, serie, creators, characters, stories, comics, events }
   },
   head() {
-    const url = `${process.env.APP_URL}/events/${this.event.id}`
-    const title = this.event.title
-    const description = this.event.description || title
-    const image = `${this.event.thumbnail.path}.${
-      this.event.thumbnail.extension
+    const url = `${process.env.APP_URL}/events/${this.serie.id}`
+    const title = this.serie.title
+    const description = this.serie.description || title
+    const image = `${this.serie.thumbnail.path}.${
+      this.serie.thumbnail.extension
     }`
 
     return {
