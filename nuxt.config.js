@@ -67,8 +67,12 @@ module.exports = {
     '@nuxtjs/dotenv',
     '@nuxtjs/axios',
     '@nuxtjs/vuetify',
-    '@nuxtjs/font-awesome'
+    '@nuxtjs/font-awesome',
+    'nuxt-ssr-cache'
   ],
+  cache: {
+    pages: ['/']
+  },
 
   /*
     ** Build configuration
