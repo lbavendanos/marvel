@@ -5,7 +5,7 @@ const description =
 const author = 'lbavendanos'
 const twitter = '@lbavendanos'
 const url = process.env.APP_URL
-// const image = `${process.env.APP_URL}${require('@/assets/images/logo.svg')}`
+// const image = `${process.env.APP_URL}${require('@/assets/images/logo.png')}`
 
 module.exports = {
   mode: 'universal',

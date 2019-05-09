@@ -111,7 +111,7 @@ export default {
     const url = `${process.env.APP_URL}/creators`
     const title = `${process.env.APP_NAME} - Creators`
     const description = `${process.env.APP_NAME} - Creators`
-    const image = `${process.env.APP_URL}${require('@/assets/images/logo.svg')}`
+    const image = `${process.env.APP_URL}${require('@/assets/images/logo.png')}`
 
     return {
       title,
