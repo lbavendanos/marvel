@@ -71,6 +71,16 @@ module.exports = {
     'nuxt-ssr-cache'
   ],
   cache: {
+    store: {
+      type: 'multi',
+      stores: [
+        {
+          type: 'memory',
+          max: 100,
+          ttl: 60
+        }
+      ]
+    },
     pages: ['/']
   },
 

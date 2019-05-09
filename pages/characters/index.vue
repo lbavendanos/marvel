@@ -1,7 +1,9 @@
 <template>
   <section>
     <v-img :src="require('@/assets/images/banner2.jpg')">
-      <v-container fill-height class="white--text">
+      <v-container 
+        fill-height 
+        class="white--text">
         <v-layout align-center>
           <v-flex>
             <h3 class="display-3 text-xs-center">CHARACTERS</h3>
@@ -17,8 +19,14 @@
         <h3
           class="subheading white--text text-xs-center font-weight-light"
         >Search your favorite character</h3>
-        <v-layout row wrap align-center justify-center>
-          <v-flex xs12 sm8>
+        <v-layout 
+          row 
+          wrap 
+          align-center 
+          justify-center>
+          <v-flex 
+            xs12 
+            sm8>
             <v-text-field
               :append-icon="loading ? 'fa fa-circle-o-notch fa-spin' : ''"
               v-model="search"
@@ -33,9 +41,14 @@
         </v-layout>
       </v-container>
     </v-form>
-    <v-container grid-list-lg pt-2 pb-5>
+    <v-container 
+      grid-list-lg 
+      pt-2 
+      pb-5>
       <h1 class="title white--text mb-3 font-weight-black">SOME CHARACTERS</h1>
-      <v-layout raw wrap>
+      <v-layout 
+        raw 
+        wrap>
         <v-flex
           v-for="character in characters"
           :key="character.id"
@@ -45,7 +58,9 @@
           md4
           lg3
         >
-          <nuxt-link :to="`characters/${character.id}`" class="card-link d-block">
+          <nuxt-link 
+            :to="`characters/${character.id}`" 
+            class="card-link d-block">
             <AppCard
               :id="character.id"
               :title="character.name || 'none'"

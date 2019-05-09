@@ -1,7 +1,9 @@
 <template>
   <section>
     <v-img :src="require('@/assets/images/banner3.jpg')">
-      <v-container fill-height class="white--text">
+      <v-container 
+        fill-height 
+        class="white--text">
         <v-layout align-center>
           <v-flex>
             <h3 class="display-3 text-xs-center">CREATORS</h3>
@@ -15,8 +17,14 @@
         <h3
           class="subheading white--text text-xs-center font-weight-light"
         >Search your favorite creator</h3>
-        <v-layout row wrap align-center justify-center>
-          <v-flex xs12 sm8>
+        <v-layout 
+          row 
+          wrap 
+          align-center 
+          justify-center>
+          <v-flex 
+            xs12 
+            sm8>
             <v-text-field
               :append-icon="loading ? 'fa fa-circle-o-notch fa-spin' : ''"
               v-model="search"
@@ -31,11 +39,25 @@
         </v-layout>
       </v-container>
     </v-form>
-    <v-container grid-list-lg pt-2 pb-5>
+    <v-container 
+      grid-list-lg 
+      pt-2 
+      pb-5>
       <h1 class="title white--text mb-3 font-weight-black">SOME CREATORS</h1>
-      <v-layout raw wrap>
-        <v-flex v-for="creator in creators" :key="creator.id" class="card-item" xs12 sm6 md4 lg3>
-          <nuxt-link :to="`creators/${creator.id}`" class="card-link d-block">
+      <v-layout 
+        raw 
+        wrap>
+        <v-flex 
+          v-for="creator in creators" 
+          :key="creator.id" 
+          class="card-item" 
+          xs12 
+          sm6 
+          md4 
+          lg3>
+          <nuxt-link 
+            :to="`creators/${creator.id}`" 
+            class="card-link d-block">
             <AppCard
               :id="creator.id"
               :title="creator.fullName || 'none'"
